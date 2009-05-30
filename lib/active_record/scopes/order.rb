@@ -22,7 +22,7 @@ module ActiveRecord
           direction = hash[column].to_s.upcase
 
           unless %(ASC DESC).include?(direction)
-            raise ArgumentError, "Only :asc or :desc allowed"
+            raise ArgumentError, "Only ASC or DESC allowed."
           end
 
           "`#{column}` #{direction}"
