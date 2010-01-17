@@ -39,7 +39,6 @@ module ActiveRecord
         end
       
         def search_by(*all_criteria)
-          all_criteria.flatten!
           scope = scoped({})
           all_criteria.each do |c|
             scope = scope.scoped(search_by_criteria(*c).proxy_options)
