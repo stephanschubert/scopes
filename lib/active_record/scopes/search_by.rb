@@ -33,12 +33,12 @@ module ActiveRecord
 
       module ClassMethods
 
-        def self.search_by_criteria(column, operator, value)
+        def search_by_criteria(column, operator, value)
           scope = operator.to_s.gsub(" ", "_").to_sym
           send(scope, column, value)
         end
       
-        def self.search_by(*all_criteria)
+        def search_by(*all_criteria)
           scope = scoped({})
           all_criteria.each do |c|
             scope = scope.scoped(search_by_criteria(*c).proxy_options)
