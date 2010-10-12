@@ -3,9 +3,9 @@ module ActiveRecord
     module Latest
 
       def self.included(base)
-        base.named_scope :latest, :order => "created_at DESC"
+        base.scope :latest, :order => "created_at DESC"
       end
-      
+
     end
   end
 end

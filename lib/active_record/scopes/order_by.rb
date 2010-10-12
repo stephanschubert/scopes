@@ -5,7 +5,7 @@ module ActiveRecord
       def self.included(base)
         base.extend ClassMethods
 
-        base.named_scope :order_by, lambda { |*order|
+        base.scope :order_by, lambda { |*order|
           how_to_order = base.convert_ordering_to_sql(order.flatten.first || default_ordering)
           { :order => how_to_order }
         }

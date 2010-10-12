@@ -16,15 +16,15 @@ module ActiveRecord
         :is_greater_than          => [ ">"          "",  "" ],
         :is_greater_than_or_equal => [ ">=",        "",  "" ],
       }
-      
+
       def self.included(base)
         base.extend ClassMethods
 
         SCOPES.each do |name, (operator, prefix, suffix)|
-          base.named_scope name, lambda { |column, value|
+          base.scope name, lambda { |column, value|
             { :conditions => [
-              "LOWER(#{column}) #{operator} ?", 
-              "#{prefix}#{value.is_a?(String) ? value.downcase : value}#{suffix}" 
+              "LOWER(#{column}) #{operator} ?",
+              "#{prefix}#{value.is_a?(String) ? value.downcase : value}#{suffix}"
               ]
             }
           }
@@ -37,17 +37,15 @@ module ActiveRecord
           scope = operator.to_s.gsub(" ", "_").to_sym
           send(scope, column, value)
         end
-      
+
         def search_by(*all_criteria)
           scope = scoped({})
-          all_criteria.each do |c|
-            scope = scope.scoped(search_by_criteria(*c).proxy_options)
-          end
+          all_criteria.each { |c| scope = scope.search_by_criteria(*c) }
           scope
         end
 
       end
-  
+
     end
   end
 end

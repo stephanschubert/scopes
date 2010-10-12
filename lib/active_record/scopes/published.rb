@@ -3,11 +3,11 @@ module ActiveRecord
     module Published
 
       def self.included(base)
-        base.named_scope :published, :conditions => [
+        base.scope :published, :conditions => [
           "published_at IS NOT NULL AND published_at < ?", Time.now
         ]
       end
-      
+
     end
   end
 end

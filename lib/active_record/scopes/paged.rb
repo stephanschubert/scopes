@@ -3,7 +3,7 @@ module ActiveRecord
     module Paged
 
       def self.included(base)
-        base.named_scope :paged, lambda { |*args|
+        base.scope :paged, lambda { |*args|
           options  = args.extract_options!
           page     = options[:page]     || 0
           per_page = options[:per_page] || 10
@@ -11,7 +11,7 @@ module ActiveRecord
           { :limit => per_page, :offset => (per_page * page) }
         }
       end
-      
+
     end
   end
 end

@@ -3,9 +3,9 @@ module ActiveRecord
     module Drafts
 
       def self.included(base)
-        base.named_scope :drafts, :conditions => { :published_at => nil }
+        base.scope :drafts, :conditions => { :published_at => nil }
       end
-      
+
     end
   end
 end
