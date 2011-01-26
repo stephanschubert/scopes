@@ -4,7 +4,7 @@ module ActiveRecord
 
       def self.included(base)
         base.scope :except, lambda { |*records|
-          if records.blank?
+          if records.compact.blank?
             {}
           else
             { :conditions => [ "id NOT IN (?)", records ] }
