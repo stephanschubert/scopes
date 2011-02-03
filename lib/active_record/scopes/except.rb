@@ -6,7 +6,7 @@ module ActiveRecord
         base.scope :except, lambda { |*records|
           # Ensure we got only valid records from the DB
           records = records.compact.reject do |r|
-            r.respond_to?(:new_record?) ? r.new_record? : true
+            r.respond_to?(:new_record?) ? r.new_record? : false
           end
 
           if records.blank?
