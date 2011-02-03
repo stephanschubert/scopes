@@ -5,7 +5,7 @@ module ActiveRecord
       def self.included(base)
         base.scope :except, lambda { |*records|
           # Ensure we got only valid records from the DB
-          records = records.compact.reject do |record|
+          records = records.compact.reject do |r|
             r.respond_to?(:new_record?) ? r.new_record? : true
           end
 
