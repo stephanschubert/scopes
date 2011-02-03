@@ -4,7 +4,12 @@ module ActiveRecord
 
       def self.included(base)
         base.scope :except, lambda { |*records|
-          if records.compact.blank?
+          # Ensure we got only valid records from the DB
+          records = records.compact.reject do |record|
+            r.respond_to?(:new_record?) ? r.new_record? : true
+          end
+
+          if records.blank?
             {}
           else
             { :conditions => [ "id NOT IN (?)", records ] }
